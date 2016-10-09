@@ -135,7 +135,7 @@ try:
 except:
     print('\n\nexception!!\n\n')
     RECAPTCHA_SECRET_KEY = os.environ['RECAPTCHA_SECRET_KEY']    
-
+    SENDGRID_KEY = os.environ['SENDGRID_KEY']
 
 
 
