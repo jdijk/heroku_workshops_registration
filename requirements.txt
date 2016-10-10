@@ -19,3 +19,4 @@ whitenoise==2.0.3
 redis
 rq
 sendgrid
+qrcode
