@@ -18,3 +18,4 @@ traitlets==4.0.0
 whitenoise==2.0.3
 redis
 rq
+sendgrid
