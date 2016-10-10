@@ -9,8 +9,8 @@ services:
     command: python appherokureg/worker.py
     volumes:
       - .:/code
-      depends_on:
-        - redis
+    depends_on:
+      - redis
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
