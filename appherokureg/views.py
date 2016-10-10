@@ -11,7 +11,7 @@ import requests
 from rq import Queue
 from .worker import conn
 
-from send_email import send_notification
+from .send_email import send_notification
 
 the_queue = Queue(connection=conn)
 
