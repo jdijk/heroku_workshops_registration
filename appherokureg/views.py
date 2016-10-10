@@ -9,7 +9,7 @@ from projherokureg.settings import RECAPTCHA_SECRET_KEY
 import requests
 
 from rq import Queue
-from worker import conn
+from .worker import conn
 
 the_queue = Queue(connection=conn)
 
