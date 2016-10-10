@@ -8,6 +8,10 @@ from django.core.urlresolvers import reverse
 from projherokureg.settings import RECAPTCHA_SECRET_KEY
 import requests
 
+from rq import Queue
+from worker import conn
+
+the_queue = Queue(connection=conn)
 
 # Create your views here.
 
@@ -51,15 +55,21 @@ def add_registration(request):
         # Test captcha first
         if response['status']:
             print('Captcha was a success')
-            f = RegistrationForm(data)      
+            f = RegistrationForm(data)
+
             if f.is_valid():
+
                 print('form is valid')
                 registration = f.save(commit=False)
                 registration.save()
                 url = reverse('registration_added')                
                 print(url)
+                
+                result = send_notification(f.cleaned_data['email'])
+                print(result)
+
                 return HttpResponseRedirect(url)
-                #return HttpResponseRedirect(reverse('spot_added'))
+                                
             else:
                 print('not valid?!?!?')
                 print (f.errors)

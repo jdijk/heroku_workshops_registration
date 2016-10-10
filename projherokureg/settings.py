@@ -108,6 +108,18 @@ if 'DATABASE_URL' in os.environ:
     # Allow all host headers
     ALLOWED_HOSTS = ['*']
 
+
+# REDIS settings, local or docker if we have the right env var:
+REDIS_PORT_6379_TCP_ADDR = 'redis://localhost:6379'
+
+if 'REDIS_PORT_6379_TCP_ADDR' in os.environ:
+    REDIS_PORT_6379_TCP_ADDR = os.environ['REDIS_PORT_6379_TCP_ADDR ']
+
+# else we're on Heroku
+if 'REDIS_URL' in os.environ:
+    REDIS_PORT_6379_TCP_ADDR  = os.environ['REDIS_URL']
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 

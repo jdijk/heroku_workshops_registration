@@ -7,11 +7,16 @@ import base64
 from projherokureg.settings import SENDGRID_KEY
 
 
+def send_notification(to_mail):
+    mail = prepare_email(to_email)
+    do_it(mail)
+
+
 def prepare_email(recipient):
 
     from_email = Email('feliperyan@gmail.com')
     subj = 'Ok Computer'
-    to_email = Email('feliperyan@gmail.com')
+    to_email = Email(recipient)
     content = Content('text/html', '<html><body><h1>yolo</h1></body></html>')
 
     mail = Mail(from_email, subj, to_email, content)
@@ -32,6 +37,7 @@ def prepare_email(recipient):
     mail.add_attachment(a)
 
     return mail
+
 
 def do_it(the_mail):
 
