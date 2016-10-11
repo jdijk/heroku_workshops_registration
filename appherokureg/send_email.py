@@ -7,17 +7,25 @@ import base64
 from projherokureg.settings import SENDGRID_KEY
 
 
-def send_notification(to_email, subject):
-    mail = prepare_email(to_email, subject)
+def send_notification(to_email, fullname):
+    mail = prepare_email(to_email, fullname)
     do_it(mail)
 
 
-def prepare_email(recipient, subject):
+def prepare_email(recipient, fullname):
+
+    email_body = ('<html><body>'
+    '<h1>Thank you for registering.</h1>'
+    '<h2> Details of the Worshop:</h2>'
+    '<p>201 Sussex St, Darling Park, Tower 3 level 12.</p>'
+    '<p>27th of October 8:30am</p>'
+    '<h3>Please find attached the QR Code to present at registration</h3>'+
+    '</body></html>')
 
     from_email = Email('feliperyan@gmail.com')
-    subj = subject
+    subj = 'Hello ' + fullname + ' - Heroku Workshop'
     to_email = Email(recipient)
-    content = Content('text/html', '<html><body><h1>yolo</h1></body></html>')
+    content = Content('text/html', email_body)
 
     mail = Mail(from_email, subj, to_email, content)
 

@@ -11,5 +11,7 @@ class RegForm(models.Model):
     company = models.CharField(max_length=300)
     role = models.CharField(max_length=300)
     email = models.EmailField(max_length=100)
+    attended = models.BooleanField(default=False)
+    reg_key = models.CharField(max_length=300)
 
 

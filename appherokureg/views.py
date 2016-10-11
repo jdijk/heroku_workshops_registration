@@ -7,7 +7,7 @@ from django.core import serializers
 from django.core.urlresolvers import reverse
 from projherokureg.settings import RECAPTCHA_SECRET_KEY
 import requests
-
+from django.utils.crypto import get_random_string
 from rq import Queue
 from .worker import conn
 
@@ -32,6 +32,7 @@ def get_client_ip(request):
 
 
 def add_registration(request):
+
     if request.method == 'POST':
 
         data = request.POST
@@ -61,13 +62,17 @@ def add_registration(request):
 
             if f.is_valid():
 
+                hash_input = (get_random_string(30)).encode('utf-8').lower()
+
                 print('form is valid')
                 registration = f.save(commit=False)
+                registration.reg_key = hash_input
+
                 registration.save()
                 url = reverse('registration_added')                
                 print(url)
                 
-                result = send_notification(f.cleaned_data['email'])
+                result = send_notification(f.cleaned_data['email'], f.cleaned_data['full_name'])
                 print(result)
 
                 return HttpResponseRedirect(url)
@@ -84,4 +89,9 @@ def add_registration(request):
     else:
         f = RegistrationForm()
         return render(request, 'addgarage.html', {'form': f})
+
+
+def invitee_attended():
+    None
+    # todo
 
