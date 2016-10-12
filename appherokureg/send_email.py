@@ -7,12 +7,12 @@ import base64
 from projherokureg.settings import SENDGRID_KEY
 
 
-def send_notification(to_email, fullname):
-    mail = prepare_email(to_email, fullname)
+def send_notification(to_email, fullname, key):
+    mail = prepare_email(to_email, fullname, key)
     do_it(mail)
 
 
-def prepare_email(recipient, fullname):
+def prepare_email(recipient, fullname, key):
 
     email_body = ('<html><body>'
     '<h1>Thank you for registering.</h1>'
@@ -28,8 +28,11 @@ def prepare_email(recipient, fullname):
     content = Content('text/html', email_body)
 
     mail = Mail(from_email, subj, to_email, content)
+    
+    print(key)
+    full_string = 'https://heroku-workshop-reg.herokuapp.com/attended/'+str(key)
 
-    img = qrcode.make('some rubbish')
+    img = qrcode.make(full_string)
     b = io.BytesIO()
     img.save(b, format='PNG')
     s = b.getvalue()

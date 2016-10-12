@@ -62,7 +62,7 @@ def add_registration(request):
 
             if f.is_valid():
 
-                hash_input = (get_random_string(30)).encode('utf-8').lower()
+                hash_input = (get_random_string(30)).lower()
 
                 print('form is valid')
                 registration = f.save(commit=False)
@@ -72,7 +72,7 @@ def add_registration(request):
                 url = reverse('registration_added')                
                 print(url)
                 
-                result = send_notification(f.cleaned_data['email'], f.cleaned_data['full_name'])
+                result = send_notification(f.cleaned_data['email'], f.cleaned_data['full_name'], hash_input)
                 print(result)
 
                 return HttpResponseRedirect(url)
@@ -91,7 +91,17 @@ def add_registration(request):
         return render(request, 'addgarage.html', {'form': f})
 
 
-def invitee_attended():
-    None
-    # todo
+def invitee_attended(request, key):
+    response = 'something went wrong.'
+    
+    try:
+        attendee = RegForm.objects.get(reg_key=key)
+        attendee.attended = True
+        response = attendee.full_name + ' has attended!'
+    except DoesNotExist as e:
+        print (e)
+        response = 'Could not find this registration...'
+
+    return render(request, 'attended.html', { 'response': response })
+
 
