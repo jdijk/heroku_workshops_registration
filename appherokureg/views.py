@@ -97,8 +97,9 @@ def invitee_attended(request, key):
     try:
         attendee = RegForm.objects.get(reg_key=key)
         attendee.attended = True
+        attendee.save()
         response = attendee.full_name + ' has attended!'
-    except DoesNotExist as e:
+    except RegForm.DoesNotExist as e:
         print (e)
         response = 'Could not find this registration...'
 
