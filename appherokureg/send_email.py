@@ -16,13 +16,10 @@ def prepare_email(recipient, fullname, key):
 
     email_body = ('<html><body>'
     '<h1>Thank you for registering.</h1>'
-    '<h2> Details of the Worshop:</h2>'
-    '<p>201 Sussex St, Darling Park, Tower 3 level 12.</p>'
-    '<p>27th of October 8:30am</p>'
     '<h3>Please find attached the QR Code to present at registration</h3>'+
     '</body></html>')
 
-    from_email = Email('feliperyan@gmail.com')
+    from_email = Email('fryan@salesforce.com')
     subj = 'Hello ' + fullname + ' - Heroku Workshop'
     to_email = Email(recipient)
     content = Content('text/html', email_body)
