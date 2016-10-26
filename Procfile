@@ -1,2 +1,2 @@
 web: gunicorn projherokureg.wsgi --log-file -
-worker: python worker.py
+worker: python appherokureg/worker.py
