@@ -1,10 +1,15 @@
 from django.contrib import admin
 # Register your models here.
-from .models import RegForm
+from .models import *
 
 
 class RegistrationAdmin(admin.ModelAdmin):
 	list_display = ('full_name', 'company', 'role', 'email')
 
 
-admin.site.register(RegForm, RegistrationAdmin)
+class WorkshopAdmin(admin.ModelAdmin):
+	list_display = ('title', 'dateandtime', 'location')
+
+
+admin.site.register(Attendee, RegistrationAdmin)
+admin.site.register(Workshop, WorkshopAdmin)

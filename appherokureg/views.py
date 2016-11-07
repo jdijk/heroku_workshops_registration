@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
-from .models import RegForm
+from .models import *
 from .forms import RegistrationForm
 from django.core import serializers
 from django.core.urlresolvers import reverse
@@ -10,6 +10,7 @@ import requests
 from django.utils.crypto import get_random_string
 from rq import Queue
 from .worker import conn
+from django.http import Http404
 
 from .send_email import send_notification
 
@@ -17,9 +18,20 @@ the_queue = Queue(connection=conn)
 
 # Create your views here.
 
-def registration_added(request):
-    context = {'message': 'Added, Thank You!'}
-    return render(request, 'thanks.html', context=context)
+def registration_added(request, slug):
+    context = dict()
+    
+    try:
+        workshop = Workshop.objects.get(slug=slug)
+        context['workshop'] = workshop
+    except Workshop.DoesNotExist as e:
+        print (e)
+        raise Http404
+
+    context['message'] = 'Added, Thank You!'
+ 
+
+    return render(request, 'thanks.html', context)
 
 
 def get_client_ip(request):
@@ -31,7 +43,15 @@ def get_client_ip(request):
     return ip
 
 
-def add_registration(request):
+def add_registration(request, slug):
+    context = dict()
+
+    try:
+        workshop = Workshop.objects.get(slug=slug)
+        context['workshop'] = workshop
+    except Workshop.DoesNotExist as e:
+        print (e)
+        raise Http404
 
     if request.method == 'POST':
 
@@ -67,9 +87,9 @@ def add_registration(request):
                 print('form is valid')
                 registration = f.save(commit=False)
                 registration.reg_key = hash_input
-
+                registration.workshop = workshop
                 registration.save()
-                url = reverse('registration_added')                
+                url = reverse('registration_added', args=(slug,))
                 print(url)
                 
                 result = send_notification(f.cleaned_data['email'], f.cleaned_data['full_name'], hash_input)
@@ -80,29 +100,28 @@ def add_registration(request):
             else:
                 print('not valid?!?!?')
                 print (f.errors)
-                return render(request, 'addgarage.html', {'form': f})
+                return render(request, 'regform.html', {'form': f})
         else:
             # Failed the Captcha:
             print(verify_rs.get('error-codes', 'no error code available... weird.'))
             f = RegistrationForm(data)            
-            return render(request, 'addgarage.html', {'form': f, 'captchaError':'You failed the captcha...'})
+            return render(request, 'regform.html', {'form': f, 'captchaError':'You failed the captcha...'})
     else:
         f = RegistrationForm()
-        return render(request, 'addgarage.html', {'form': f})
+        context['form'] = f        
+        return render(request, 'regform.html', context)
 
 
 def invitee_attended(request, key):
     response = 'something went wrong.'
     
     try:
-        attendee = RegForm.objects.get(reg_key=key)
+        attendee = Attendee.objects.get(reg_key=key)
         attendee.attended = True
         attendee.save()
         response = attendee.full_name + ' has attended!'
-    except RegForm.DoesNotExist as e:
+    except Atendee.DoesNotExist as e:
         print (e)
         response = 'Could not find this registration...'
 
     return render(request, 'attended.html', { 'response': response })
-
-

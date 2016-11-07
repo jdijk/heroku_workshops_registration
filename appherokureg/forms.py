@@ -4,5 +4,6 @@ from .models import *
 
 class RegistrationForm(ModelForm):
 	class Meta:
-		model = RegForm
+		model = Attendee
 		fields = ['full_name', 'company', 'role', 'email']
+

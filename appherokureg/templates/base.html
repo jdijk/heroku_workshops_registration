@@ -124,8 +124,8 @@
             </div>
         </div>
         <div class="container">
-            <h1 class="display-3">Heroku Workshop</h1>
-            <p style="text-align: center">Sydney, October 27th 2016 @ Salesforce!</p>
+            <h1 class="display-3">{{workshop.title}}</h1>
+            <p style="text-align: center">{{workshop.dateandtime|date:"l j F"}} {{workshop.dateandtime|time:"f:i A"}} @ {{workshop.location}}</p>
         </div>    
     </div>
 
