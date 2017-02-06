@@ -16,8 +16,8 @@ simplegeneric==0.8.1
 static3==0.6.1
 traitlets==4.0.0
 whitenoise==2.0.3
-redis
-rq
-sendgrid
-qrcode
-Pillow
+redis==2.10.5
+rq==0.7.1
+sendgrid==3.6.3
+qrcode==5.3
+Pillow==4.0.0

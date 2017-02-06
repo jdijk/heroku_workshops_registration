@@ -64,7 +64,7 @@
             white-space: nowrap;
             height: 40px;
             width: 143px;
-            background-image: url({% static "images/logo-9ddfa622029bcad4fd1709b8045bb897b207d4d8c3005ee5e360abd5745341b2.svg" %});
+            background-image: url({% static "images/logo-9ddfa622029bcad4fd1709b8045bb897b207d4d8c3005ee5e360abd5745341b2.svg" %});            
             display: block;
             background-repeat: no-repeat;
         }
@@ -132,6 +132,17 @@
 	{% block main %}
 	{% endblock %}
 
-</body>
+</body>   
+
+<!--
+    In case I want to handle dynamic logos in the future:
+
+    {% if workshop.picture_url %}
+        background-image: url({{ workshop.picture_url }});
+    {% else %}
+        background-image: url({% static "images/logo-9ddfa622029bcad4fd1709b8045bb897b207d4d8c3005ee5e360abd5745341b2.svg" %});
+    {% endif %}
+
+-->
 
 </html>

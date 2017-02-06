@@ -99,13 +99,16 @@ def add_registration(request, slug):
                                 
             else:
                 print('not valid?!?!?')
+                print(workshop)
                 print (f.errors)
-                return render(request, 'regform.html', {'form': f})
+                context['form'] = f
+                
+                return render(request, 'regform.html', context)
         else:
             # Failed the Captcha:
             print(verify_rs.get('error-codes', 'no error code available... weird.'))
             f = RegistrationForm(data)            
-            return render(request, 'regform.html', {'form': f, 'captchaError':'You failed the captcha...'})
+            return render(request, 'regform.html', {'form': f, 'captchaError':'You failed the captcha...', 'workshop': workshop})
     else:
         f = RegistrationForm()
         context['form'] = f        

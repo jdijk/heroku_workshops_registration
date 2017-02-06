@@ -3,12 +3,17 @@ from django.contrib import admin
 from .models import *
 
 
+class AttedeeInline(admin.TabularInline):
+    model = Attendee
+
+
 class RegistrationAdmin(admin.ModelAdmin):
 	list_display = ('full_name', 'company', 'role', 'email')
 
 
 class WorkshopAdmin(admin.ModelAdmin):
 	list_display = ('title', 'dateandtime', 'location')
+	inlines = [AttedeeInline]
 
 
 admin.site.register(Attendee, RegistrationAdmin)

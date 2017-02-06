@@ -10,11 +10,23 @@
 
 {% block main %}
     <div class="container">
+        
+        <div class="row">       
+            <div class="col-lg-12">
+                {% if workshop.long_description %}
+                    <p>        
+                        {{ workshop.long_description | linebreaksbr}}        
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+        
         <div class="row">       
             <div class="col-lg-12">
                 <p>&nbsp;</p>
             </div>
         </div>
+        
         {% if captchaError %}
         <div class="row">       
             <div class="col-lg-12">

@@ -15,6 +15,9 @@ class Attendee(models.Model):
     reg_key = models.CharField(max_length=300)
     workshop = models.ForeignKey('Workshop', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.email)
+
 
 class Workshop(models.Model):
     """
@@ -26,4 +29,8 @@ class Workshop(models.Model):
     title = models.CharField(max_length=300)
     picture_url = models.URLField()
     location = models.CharField(max_length=300)
+    long_description = models.TextField()
+
+    def __str__(self):
+        return str(self.slug)
     
