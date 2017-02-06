@@ -12,8 +12,9 @@ class RegistrationAdmin(admin.ModelAdmin):
 
 
 class WorkshopAdmin(admin.ModelAdmin):
-	list_display = ('title', 'dateandtime', 'location')
+	list_display = ('title', 'dateandtime', 'location')	
 	inlines = [AttedeeInline]
+	exclude = ('picture_url', )
 
 
 admin.site.register(Attendee, RegistrationAdmin)

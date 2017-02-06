@@ -27,7 +27,7 @@ class Workshop(models.Model):
     slug = models.CharField(max_length=300, unique=True)
     dateandtime = models.DateTimeField(auto_now_add=False)
     title = models.CharField(max_length=300)
-    picture_url = models.URLField()
+    picture_url = models.URLField(blank=True)
     location = models.CharField(max_length=300)
     long_description = models.TextField()
     active = models.BooleanField(default=True)
