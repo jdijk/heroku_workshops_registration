@@ -16,7 +16,7 @@ def prepare_email(recipient, fullname, key):
 
     email_body = ('<html><body>'
     '<h1>Thank you for registering.</h1>'
-    '<h3>Please find attached the QR Code to present at registration</h3>'+
+    '<h3>Please find attached the QR Code to present at the event</h3>'+
     '</body></html>')
 
     from_email = Email('fryan@salesforce.com')

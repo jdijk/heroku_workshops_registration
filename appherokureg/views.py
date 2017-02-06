@@ -91,8 +91,8 @@ def add_registration(request, slug):
                 registration.save()
                 url = reverse('registration_added', args=(slug,))
                 print(url)
-                
-                result = send_notification(f.cleaned_data['email'], f.cleaned_data['full_name'], hash_input)
+                result = the_queue.enqueue(send_notification, f.cleaned_data['email'], f.cleaned_data['full_name'], hash_input)
+                #result = send_notification(f.cleaned_data['email'], f.cleaned_data['full_name'], hash_input)
                 print(result)
 
                 return HttpResponseRedirect(url)
