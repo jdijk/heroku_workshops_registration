@@ -30,6 +30,7 @@ class Workshop(models.Model):
     picture_url = models.URLField()
     location = models.CharField(max_length=300)
     long_description = models.TextField()
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.slug)
