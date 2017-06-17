@@ -11,7 +11,7 @@
   "logo": "https://heroku-workshop-reg.herokuapp.com/static/images/logo-9ddfa622029bcad4fd1709b8045bb897b207d4d8c3005ee5e360abd5745341b2.svg",
   "success_url": "/",
   "scripts": {
-    "postdeploy": "python manage.py migrate;"
+    "postdeploy": "python manage.py makemigrations && python manage.py migrate && echo \"from django.contrib.auth.models import User; User.objects.create_superuser('adminuser', 'admin@eventregistrationapp.com', 'admin001')\" | python manage.py shell"
   },
   "addons": [
     "heroku-postgresql:hobby-dev",
