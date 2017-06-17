@@ -30,6 +30,10 @@
     "SENDGRID_KEY": {
         "description": "Go get a SendGrid API Key for this!",
         "value": "dummy_key"
+    },
+    "DJANGO_SETTINGS_MODULE": {
+        "description": "needed by whitenoise",
+        "value": "projherokureg.settings"
     }
   }
 }
