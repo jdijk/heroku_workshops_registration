@@ -17,6 +17,10 @@
     "SECRET_KEY": {
       "description": "Django secret key",
       "generator": "secret"
+    },
+    "RECAPTCHA_SECRET_KEY":{
+        "description": "Create a recaptcha code and use it here",
+        "value": "replace this with your real recaptcha code"
     }
   },
   "addons": [
