@@ -26,6 +26,10 @@
     "RECAPTCHA_SECRET_KEY":{
         "description": "Create a recaptcha code and use it here",
         "value": "replace this with your real recaptcha code"
+    },
+    "SENDGRID_KEY": {
+        "description": "Go get a SendGrid API Key for this!",
+        "value": "dummy_key"
     }
   }
 }
