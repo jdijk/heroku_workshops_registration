@@ -1,0 +1,33 @@
+{
+  "name": "Event Registration App",
+  "description": "Quickly deploy a new Web App that let's people register for your event!",
+  "keywords": [
+    "Event Registration",
+    "Django",
+    "Heroku"
+  ],
+  "website": "http://www.feliperyan.com",
+  "repository": "https://github.com/feliperyan/heroku_workshops_registration",
+  "logo": "https://heroku-workshop-reg.herokuapp.com/static/images/logo-9ddfa622029bcad4fd1709b8045bb897b207d4d8c3005ee5e360abd5745341b2.svg",
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "python manage.py migrate;"
+  },
+  "env": {
+    "SECRET_KEY": {
+      "description": "Django secret key",
+      "generator": "secret"
+    }
+  },
+  "image": "heroku/python",
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "heroku-redis:hobby-dev",
+    "sendgrid:starter" 
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python"
+    }
+  ]
+}
