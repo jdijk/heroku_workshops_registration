@@ -19,15 +19,9 @@
       "generator": "secret"
     }
   },
-  "image": "heroku/python",
   "addons": [
     "heroku-postgresql:hobby-dev",
     "heroku-redis:hobby-dev",
     "sendgrid:starter" 
-  ],
-  "buildpacks": [
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-python"
-    }
   ]
 }
