@@ -13,6 +13,11 @@
   "scripts": {
     "postdeploy": "python manage.py migrate;"
   },
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "heroku-redis:hobby-dev",
+    "sendgrid:starter"
+  ],
   "env": {
     "SECRET_KEY": {
       "description": "Django secret key",
@@ -22,10 +27,5 @@
         "description": "Create a recaptcha code and use it here",
         "value": "replace this with your real recaptcha code"
     }
-  },
-  "addons": [
-    "heroku-postgresql:hobby-dev",
-    "heroku-redis:hobby-dev",
-    "sendgrid:starter" 
-  ]
+  }
 }
