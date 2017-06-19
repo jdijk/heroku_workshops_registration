@@ -5,31 +5,23 @@
 
 - - -
 
+#### How to use the app:
 
-#### Workflow:
-
-1. Login to http://your_app_url/admin
-2. Create a new Workshop record - slug should be in a URL friendly format such as: work_another_word
-3. Send emails to invitee list using Salesforce or other means, pointing invitees to: http://your_app_url/workshop/your_workshop_slug
-4. Invitees fill out the form
-5. Back in the Admin you can see the registrations
+1. Login to http://your_app_name.herokuapp.com/admin
+2. Create a new Workshop record - slug should be in a URL friendly format such as: this-is-my-event
+3. Now you can start inviting people to the event! The registration form is at: http://your_app_name.herokuapp.com/workshop/your-event-slug
+4. Use Salesforce to email your invitees (or another tool)
+5. Back in the Admin you can see the registrations!
 6. Invitees get a confirmation email (from Sendgrid) with a QR Code
-7. Use a QR Scanning app to scan it - QR Code represents an endpoint which will mark that ateendee as attended.
-
+7. When hosting the event, Use a QR Scanning app on your mobile and reques the code from the attendees, the attendance will be marked back in the app, you can view it in the admin!
 
 #### Running on Heroku
 
-1. Create an app on Heroku
-2. Add Postgres add-on
-3. Add SendGrid add-on
-4. Add a web dyno and a worker dyno
-5. Clone this repository and push it to your new Heroku app
-6. Now do a few Heroku runs to set up the database for Django:
-
-```bash
-heroku run python manage.py migrate
-heroku run python manage.py createsuperuser
-```
+1. Deploy using the Heroku Button!
+2. Get a [Google Recaptcha Key](https://www.google.com/recaptcha/intro/)
+3. Get a [SendGrid Api key](https://devcenter.heroku.com/articles/sendgrid#obtaining-an-api-key)
+4. Add both the recaptcha and the sendgrid keys to the Config Vars under Settings in Heroku
+5. Follow the instructions above on how to use the app - **the default admin/password is: adminuser/admin001**
 
 #### Running locally
 

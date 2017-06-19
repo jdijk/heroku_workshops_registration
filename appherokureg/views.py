@@ -18,18 +18,23 @@ the_queue = Queue(connection=conn)
 
 # Create your views here.
 
+def index(request):
+    workshops = Workshop.objects.order_by('-dateandtime')
+    return render(request, 'home.html', {'workshops': workshops})
+
+
 def registration_added(request, slug):
     context = dict()
-    
+
     try:
         workshop = Workshop.objects.get(slug=slug)
         context['workshop'] = workshop
     except Workshop.DoesNotExist as e:
-        print (e)
+        print(e)
         raise Http404
 
     context['message'] = 'Added, Thank You!'
- 
+
 
     return render(request, 'thanks.html', context)
 
