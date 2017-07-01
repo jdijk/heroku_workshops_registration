@@ -41,7 +41,7 @@ class CampaignMember(models.Model):
     # as it'll already be availabe for us via Heroku Connect.
     class Meta:
         managed = False
-        db_table = '"salesforce"."CampaignMember"'
+        db_table = '"salesforce"."campaignmember"'
 
     campaignid = models.CharField(max_length=300)
     name = models.CharField(max_length=300)
@@ -53,7 +53,7 @@ class CampaignMember(models.Model):
 class Campaign(models.Model):
     class Meta:
         managed = False
-        db_table = '"salesforce"."Campaign"'
+        db_table = '"salesforce"."campaign"'
 
     name = models.CharField(max_length=300)
     sfid = models.CharField(max_length=300)
