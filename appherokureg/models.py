@@ -34,4 +34,26 @@ class Workshop(models.Model):
 
     def __str__(self):
         return str(self.slug)
-    
+
+
+class CampaignMember(models.Model):
+    # this meta option will ensure migrate doesn't create tables for this mode
+    # as it'll already be availabe for us via Heroku Connect.
+    class Meta:
+        managed = False
+        db_table = '"salesforce"."CampaignMember"'
+
+    campaignid = models.CharField(max_length=300)
+    name = models.CharField(max_length=300)
+    sfid = models.CharField(max_length=300)
+    status = models.CharField(max_length=300)
+    email = models.CharField(max_length=300)
+
+
+class Campaign(models.Model):
+    class Meta:
+        managed = False
+        db_table = '"salesforce"."Campaign"'
+
+    name = models.CharField(max_length=300)
+    sfid = models.CharField(max_length=300)

@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
-        'USER': 'postgres',        
+        'USER': 'postgres',
         'HOST': 'db',
         'PORT': 5432,
     }
@@ -101,7 +101,7 @@ if 'PG_PORT_5432_TCP_ADDR' in os.environ:
 if 'DATABASE_URL' in os.environ:
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
-    
+
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 

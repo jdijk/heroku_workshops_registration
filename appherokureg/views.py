@@ -122,7 +122,7 @@ def add_registration(request, slug):
 
 def invitee_attended(request, key):
     response = 'something went wrong.'
-    
+
     try:
         attendee = Attendee.objects.get(reg_key=key)
         attendee.attended = True
@@ -132,4 +132,4 @@ def invitee_attended(request, key):
         print (e)
         response = 'Could not find this registration...'
 
-    return render(request, 'attended.html', { 'response': response })
+    return render(request, 'attended.html', {'response': response})
