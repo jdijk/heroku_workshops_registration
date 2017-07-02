@@ -5,7 +5,7 @@ from .models import *
 from .forms import RegistrationForm
 from django.core import serializers
 from django.core.urlresolvers import reverse
-from projherokureg.settings import RECAPTCHA_SECRET_KEY
+from projherokureg.settings import RECAPTCHA_SECRET_KEY, RECAPTCHA_PUBLIC_KEY 
 import requests
 from django.utils.crypto import get_random_string
 from rq import Queue
@@ -54,6 +54,7 @@ def add_registration(request, slug):
     try:
         workshop = Workshop.objects.get(slug=slug)
         context['workshop'] = workshop
+        context['recaptcha_public'] = RECAPTCHA_PUBLIC_KEY
     except Workshop.DoesNotExist as e:
         print (e)
         raise Http404

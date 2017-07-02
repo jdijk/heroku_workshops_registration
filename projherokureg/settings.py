@@ -145,7 +145,8 @@ STATIC_URL = '/static/'
 try: 
     from .dev import *
 except:
-    RECAPTCHA_SECRET_KEY = os.environ['RECAPTCHA_SECRET_KEY']    
+    RECAPTCHA_SECRET_KEY = os.environ['RECAPTCHA_SECRET_KEY']
+    RECAPTCHA_PUBLIC_KEY = os.environ['RECAPTCHA_PUBLIC_KEY']
     SENDGRID_KEY = os.environ['SENDGRID_KEY']
 
 
