@@ -25,7 +25,7 @@ def prepare_email(recipient, fullname, key):
     content = Content('text/html', email_body)
 
     mail = Mail(from_email, subj, to_email, content)
-    
+
     print(key)
     full_string = 'https://heroku-workshop-reg.herokuapp.com/attended/'+str(key)
 

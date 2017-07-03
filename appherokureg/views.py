@@ -1,3 +1,4 @@
+import sys
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
@@ -132,5 +133,15 @@ def invitee_attended(request, key):
     except Atendee.DoesNotExist as e:
         print (e)
         response = 'Could not find this registration...'
+
+    try:
+        campaign = Campaign.objects.get(name=attendee.workshop.title)
+        member = CampaignMember.objects.get(campaignid=campaign.sfid, email=attendee.email)
+        member.status = 'Attended'
+        member.save()
+    except:        
+        print('Caught exception for SF Campaign stuff - maybe not using SF and HK Connect?')
+        print("Figure it out:", sys.exc_info()[0])
+
 
     return render(request, 'attended.html', {'response': response})
