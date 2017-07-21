@@ -3,3 +3,5 @@
 staticfiles/
 dev.py
 .vscode
+p_env
+dev.py

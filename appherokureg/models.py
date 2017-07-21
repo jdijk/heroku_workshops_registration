@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 
@@ -22,7 +23,7 @@ class Attendee(models.Model):
 class Workshop(models.Model):
     """
     Description: A Workshop and its details
-    slug is a human readable key which uniquele identifies a workshop
+    slug is a human readable key which uniquely identifies a workshop
     """
     slug = models.CharField(max_length=300, unique=True)
     dateandtime = models.DateTimeField(auto_now_add=False)
@@ -34,6 +35,11 @@ class Workshop(models.Model):
 
     def __str__(self):
         return str(self.slug)
+
+    def get_url(self):
+        the_url = reverse('add_registration', args=[self.slug])
+        return the_url
+    get_url.short_description = 'Link'
 
 
 class CampaignMember(models.Model):
