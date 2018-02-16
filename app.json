@@ -43,7 +43,7 @@
   "environments": {
     "test": {
       "scripts": {
-        "test": "nose test"
+        "test": "python tests/model_tests.py"
       }
     }
   }
