@@ -89,7 +89,7 @@ def add_registration(request, slug):
             no_recaptcha = True
 
         # Test captcha first
-        if response['status'] or no_recaptcha:
+        if response.get('status', False) or no_recaptcha:
             if no_recaptcha:
                 print('Not using captcha at all')    
             else:
