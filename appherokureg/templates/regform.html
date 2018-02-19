@@ -82,12 +82,21 @@
                     </div>
                 </div>
             </div>
-
+            {% if 'dummy' not in recaptcha_public %}
             <div class="row">
                 <div class="col-lg-6">
                     <div class="g-recaptcha" data-sitekey="{{recaptcha_public}}"></div> 
                 </div>                              
             </div>
+            {% else %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <p>Not using Recaptcha - most likely in dev mode.</p> 
+                </div>                              
+            </div>
+            {% endif %}
+
+            
 
             <div class="row">
                 <p>&nbsp;</p>
