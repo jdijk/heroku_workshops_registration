@@ -51,6 +51,8 @@ def get_client_ip(request):
 
 def add_registration(request, slug):
     context = dict()
+    response = {}
+    no_recaptcha = False
 
     try:
         workshop = Workshop.objects.get(slug=slug)
@@ -63,28 +65,36 @@ def add_registration(request, slug):
     if request.method == 'POST':
 
         data = request.POST
-        captcha_rs = data.get('g-recaptcha-response')
-        url = "https://www.google.com/recaptcha/api/siteverify"
 
-        params = {
-            'secret': RECAPTCHA_SECRET_KEY,
-            'response': captcha_rs,
-            'remoteip': get_client_ip(request)
-        }
+        # Ignore recaptcha if we don't want to use it.
+        if 'dummy' not in RECAPTCHA_PUBLIC_KEY:
+            captcha_rs = data.get('g-recaptcha-response')
+            url = "https://www.google.com/recaptcha/api/siteverify"
 
-        print(params)
+            params = {
+                'secret': RECAPTCHA_SECRET_KEY,
+                'response': captcha_rs,
+                'remoteip': get_client_ip(request)
+            }
 
-        verify_rs = requests.post(url, params=params)
-        verify_rs = verify_rs.json()
+            print(params)
 
-        response = {}
-        response["status"] = verify_rs.get("success", False)
+            verify_rs = requests.post(url, params=params)
+            verify_rs = verify_rs.json()
 
-        print(response)
+            response["status"] = verify_rs.get("success", False)
+            print(response)
+
+        else:
+            no_recaptcha = True
 
         # Test captcha first
-        if response['status']:
-            print('Captcha was a success')
+        if response.get('status', False) or no_recaptcha:
+            if no_recaptcha:
+                print('Not using captcha at all')    
+            else:
+                print('Captcha was a success.')
+
             f = RegistrationForm(data)
 
             if f.is_valid():
@@ -98,14 +108,17 @@ def add_registration(request, slug):
                 registration.save()
                 url = reverse('registration_added', args=(slug,))
                 print(url)
+
+                # Add a job to the Redis Queue
                 result = the_queue.enqueue(send_notification, f.cleaned_data['email'], f.cleaned_data['full_name'], hash_input)
                 #result = send_notification(f.cleaned_data['email'], f.cleaned_data['full_name'], hash_input)
+                
                 print(result)
 
                 return HttpResponseRedirect(url)
                                 
             else:
-                print('not valid?!?!?')
+                print('form not valid?!?!?')
                 print(workshop)
                 print (f.errors)
                 context['form'] = f
