@@ -1,7 +1,7 @@
 # Heroku Workshops Registration
 ### Allow invitees to register to a workshop then scan the emailed QR code to track attendance
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/feliperyan/heroku_workshops_registration)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/jdijk/heroku_workshops_registration)
 
 - - -
 
